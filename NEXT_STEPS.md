@@ -39,7 +39,7 @@
 ## 5. Features to Add
 - [ ] Image upload for posts
 - [x] Rich text editor integration
-- [ ] Comments system
+- [x] Comments system
 - [ ] Like/Share functionality
 - [ ] Post categories/tags
 - [ ] RSS feed

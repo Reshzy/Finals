@@ -33,7 +33,7 @@
             </main>
 
             <!-- Dark Mode Toggle Button -->
-            <div class="fixed top-4 right-4">
+            <div class="fixed top-4 right-4 z-20">
                 <button id="theme-toggle" class="p-2 bg-gray-200 dark:bg-gray-800 rounded-full focus:outline-none">
                     <span id="theme-toggle-light-icon" class="hidden dark:inline">🌞</span>
                     <span id="theme-toggle-dark-icon" class="inline dark:hidden">🌜</span>
