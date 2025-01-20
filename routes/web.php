@@ -24,4 +24,6 @@ Route::middleware('auth')->group(function () {
 // Post routes
 Route::resource('posts', PostController::class);
 
+Route::post('/posts/{post}/comments', [PostController::class, 'storeComment'])->name('posts.comments.store');
+
 require __DIR__.'/auth.php';

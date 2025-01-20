@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return view('dashboard', compact('posts'));
+        $sortField = $request->get('sort', 'created_at');
+        $sortDirection = $request->get('direction', 'desc');
+
+        $posts = Post::orderBy($sortField, $sortDirection)->paginate(10);
+
+        return view('dashboard', compact('posts', 'sortField', 'sortDirection'));
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -20,29 +22,41 @@ class PostController extends Controller
             'body' => 'required',
         ]);
 
-        Post::create($request->all());
+        Auth::user()->posts()->create($request->all());
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+        return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
 
     public function update(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
+
+        // Check if the authenticated user is the author of the post
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required',
         ]);
 
-        $post = Post::find($id);
         $post->update($request->all());
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
+        return redirect()->route('dashboard')->with('success', 'Post updated successfully.');
     }
 
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
+
+        // Check if the authenticated user is the author of the post
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
     }
 
     public function create()
@@ -52,25 +66,36 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         return view('posts.show', compact('post'));
     }
 
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
+
+        // Check if the authenticated user is the author of the post
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('posts.edit', compact('post'));
     }
-}
 
-class DashboardController extends Controller
-{
-    public function index()
+    public function storeComment(Request $request, $postId)
     {
-        // Fetch all posts
-        $posts = Post::all();
+        $request->validate([
+            'body' => 'required|string|max:1000',
+        ]);
 
-        // Pass posts to the dashboard view
-        return view('dashboard', compact('posts'));
+        $post = Post::findOrFail($postId);
+
+        $post->comments()->create([
+            'body' => $request->body,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('posts.show', $postId)->with('success', 'Comment added successfully.');
     }
 }
+

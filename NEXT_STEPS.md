@@ -3,19 +3,19 @@
 ## 1. Database & Model Setup
 - [x] Create posts migration
 - [x] Create Post model
-- [ ] Add any additional fields needed for posts (e.g., author, published_at, status)
+- [x] Add any additional fields needed for posts (e.g., author, published_at, status)
 - [ ] Consider adding categories/tags functionality
 - [ ] Set up model relationships if adding user authentication
 
 ## 2. Views Implementation
 - [x] Create post form (create.blade.php)
 - [ ] Index view to list all posts (index.blade.php)
-  - [ ] Add pagination
-  - [ ] Add sorting options
+  - [x] Add pagination
+  - [x] Add sorting options
   - [ ] Add search functionality
-- [ ] Show view for individual posts (show.blade.php)
-- [ ] Edit form (edit.blade.php)
-- [ ] Add confirmation dialogs for delete actions
+- [x] Show view for individual posts (show.blade.php)
+- [x] Edit form (edit.blade.php)
+- [x] Add confirmation dialogs for delete actions
 - [ ] Create a layout template (layout.blade.php)
   - [ ] Include proper meta tags
   - [ ] Set up navigation
@@ -38,7 +38,7 @@
 
 ## 5. Features to Add
 - [ ] Image upload for posts
-- [ ] Rich text editor integration
+- [x] Rich text editor integration
 - [ ] Comments system
 - [ ] Like/Share functionality
 - [ ] Post categories/tags

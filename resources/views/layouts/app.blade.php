@@ -14,8 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <body class="font-sans antialiased bg-white dark:bg-gray-900">
+        <div id="app">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -31,6 +31,35 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <!-- Dark Mode Toggle Button -->
+            <div class="fixed top-4 right-4">
+                <button id="theme-toggle" class="p-2 bg-gray-200 dark:bg-gray-800 rounded-full focus:outline-none">
+                    <span id="theme-toggle-light-icon" class="hidden dark:inline">🌞</span>
+                    <span id="theme-toggle-dark-icon" class="inline dark:hidden">🌜</span>
+                </button>
+            </div>
         </div>
+
+        <script>
+            // JavaScript to toggle dark mode
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // On page load, set the theme based on localStorage
+            if (localStorage.getItem('theme') === 'dark') {
+                htmlElement.classList.add('dark');
+            }
+        </script>
     </body>
 </html>
