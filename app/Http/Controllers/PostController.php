@@ -37,7 +37,7 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
-    
+
     public function destroy($id)
     {
         $post = Post::find($id);
@@ -60,5 +60,17 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         return view('posts.edit', compact('post'));
+    }
+}
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        // Fetch all posts
+        $posts = Post::all();
+
+        // Pass posts to the dashboard view
+        return view('dashboard', compact('posts'));
     }
 }
