@@ -7,11 +7,11 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <!-- <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
-            </div>
+            </div> -->
 
             <!-- Search Form -->
             <div class="mt-4">
@@ -58,6 +58,9 @@
                                 <span>{{ $post->created_at->format('M d, Y') }}</span>
                             </div>
                             <div class="mt-4 text-gray-600 dark:text-gray-400 truncate-text">{!! $post->body !!}</div>
+                            @if($post->image_path)
+                                <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg mt-4">
+                            @endif
                         </div>
                     </a>
                     <div class="p-4 border-t border-gray-200 dark:border-gray-600 mt-auto">

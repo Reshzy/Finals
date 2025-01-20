@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Comment;
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'user_id'];
+    protected $fillable = ['title', 'body', 'user_id', 'image_path'];
 
     public function user()
     {

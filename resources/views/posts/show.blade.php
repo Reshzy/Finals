@@ -12,6 +12,9 @@
                     <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{ $post->title }}</h3>
                     <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Posted by: {{ $post->user->name }}</p>
                     <div class="mt-4 text-gray-600 dark:text-gray-400">{!! $post->body !!}</div>
+                    @if($post->image_path)
+                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full object-cover rounded-3xl mt-4 mb-4">
+                    @endif
                 </div>
             </div>
 

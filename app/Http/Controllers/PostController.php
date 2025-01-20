@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -20,10 +21,17 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $post = new Post($request->all());
         $post->user_id = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $post->image_path = $path;
+        }
+
         $post->save();
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
@@ -41,7 +49,17 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete the old image if exists
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $post->image_path = $path;
+        }
 
         $post->update($request->all());
 
