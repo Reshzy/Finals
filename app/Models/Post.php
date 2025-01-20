@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Comment;
-
 class Post extends Model
 {
     protected $fillable = ['title', 'body', 'user_id'];

@@ -11,9 +11,13 @@ class DashboardController extends Controller
     {
         $sortField = $request->get('sort', 'created_at');
         $sortDirection = $request->get('direction', 'desc');
+        $search = $request->get('search', '');
 
-        $posts = Post::orderBy($sortField, $sortDirection)->paginate(10);
+        $posts = Post::where('title', 'like', '%' . $search . '%')
+            ->orWhere('body', 'like', '%' . $search . '%')
+            ->orderBy($sortField, $sortDirection)
+            ->paginate(10);
 
-        return view('dashboard', compact('posts', 'sortField', 'sortDirection'));
+        return view('dashboard', compact('posts', 'sortField', 'sortDirection', 'search'));
     }
 }

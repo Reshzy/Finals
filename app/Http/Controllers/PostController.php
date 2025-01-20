@@ -22,7 +22,9 @@ class PostController extends Controller
             'body' => 'required',
         ]);
 
-        Auth::user()->posts()->create($request->all());
+        $post = new Post($request->all());
+        $post->user_id = Auth::id();
+        $post->save();
 
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
@@ -92,10 +94,9 @@ class PostController extends Controller
 
         $post->comments()->create([
             'body' => $request->body,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('posts.show', $postId)->with('success', 'Comment added successfully.');
     }
 }
-

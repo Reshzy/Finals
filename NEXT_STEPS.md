@@ -12,7 +12,7 @@
 - [ ] Index view to list all posts (index.blade.php)
   - [x] Add pagination
   - [x] Add sorting options
-  - [ ] Add search functionality
+  - [x] Add search functionality
 - [x] Show view for individual posts (show.blade.php)
 - [x] Edit form (edit.blade.php)
 - [x] Add confirmation dialogs for delete actions
@@ -24,9 +24,9 @@
 ## 3. Controller Enhancement
 - [ ] Add proper validation rules
 - [ ] Implement error handling
-- [ ] Add flash messages for user feedback
+- [x] Add flash messages for user feedback
 - [ ] Add search functionality
-- [ ] Implement sorting and filtering
+- [x] Implement sorting and filtering
 - [ ] Add pagination logic
 
 ## 4. Authentication & Authorization
@@ -51,7 +51,7 @@
 - [ ] Implement responsive design
 - [ ] Add client-side validation
 - [ ] Improve error messages
-- [ ] Add success notifications
+- [x] Add success notifications
 
 ## 7. Testing
 - [ ] Write feature tests for CRUD operations
