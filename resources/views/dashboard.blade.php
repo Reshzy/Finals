@@ -59,7 +59,9 @@
                             </div>
                             <div class="mt-4 text-gray-600 dark:text-gray-400 truncate-text">{!! $post->body !!}</div>
                             @if($post->image_path)
-                                <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg mt-4">
+                                <div class="image-fade-container mt-4">
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg">
+                                </div>
                             @endif
                         </div>
                     </a>
@@ -102,13 +104,32 @@
             left: 0;
             right: 0;
             height: 30px;
-
             background: linear-gradient(to bottom, rgba(55, 65, 81, 0), rgba(255, 255, 255, 1));
             z-index: 1;
         }
 
         .dark .truncate-text::after {
             background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(55, 65, 81, 1));
+        }
+/* 
+        .image-fade-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-fade-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            z-index: 1;
+        } */
+
+        .dark .image-fade-container::after {
+            background: linear-gradient(to bottom, rgba(55, 65, 81, 0), rgba(55, 65, 81, 1));
         }
     </style>
 

@@ -41,7 +41,6 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        // Check if the authenticated user is the author of the post
         if (Auth::id() !== $post->user_id) {
             abort(403, 'Unauthorized action.');
         }
@@ -52,8 +51,12 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        if ($request->has('remove_image') && $post->image_path) {
+            Storage::disk('public')->delete($post->image_path);
+            $post->image_path = null;
+        }
+
         if ($request->hasFile('image')) {
-            // Delete the old image if exists
             if ($post->image_path) {
                 Storage::disk('public')->delete($post->image_path);
             }
@@ -61,7 +64,7 @@ class PostController extends Controller
             $post->image_path = $path;
         }
 
-        $post->update($request->all());
+        $post->update($request->only(['title', 'body']));
 
         return redirect()->route('dashboard')->with('success', 'Post updated successfully.');
     }
